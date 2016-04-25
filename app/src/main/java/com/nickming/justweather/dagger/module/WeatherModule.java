@@ -30,4 +30,6 @@ public class WeatherModule {
     {
         return new WeatherPresenter(WeatherRepository.getInstance(),this.weatherFragment);
     }
+
+
 }

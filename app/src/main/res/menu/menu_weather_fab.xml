@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_weixin"
+        android:icon="@drawable/ic_menu_share"
+        android:title="@string/weixin" />
+
+    <item
+        android:id="@+id/action_favourite"
+        android:icon="@drawable/ic_favorite_24dp"
+        android:title="@string/favourite" />
+
+    <item
+        android:id="@+id/action_message"
+        android:icon="@drawable/ic_menu_send"
+        android:title="@string/message" />
+</menu>

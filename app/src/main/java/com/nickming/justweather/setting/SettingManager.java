@@ -1,4 +1,4 @@
-package com.nickming.justweather.common;
+package com.nickming.justweather.setting;
 
 import android.content.Context;
 import android.content.SharedPreferences;

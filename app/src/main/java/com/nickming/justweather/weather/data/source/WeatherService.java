@@ -21,4 +21,7 @@ public interface WeatherService {
 
     @GET("/x3/weather")
     Observable<WeatherApi> requestWeatherInfo(@Query("cityid") String cityid, @Query("key") String key);
+
+    @GET("/x3/weather")
+    Observable<WeatherApi> requestWeatherForCityName(@Query("city") String cityid, @Query("key") String key);
 }

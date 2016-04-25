@@ -1,8 +1,13 @@
 package com.nickming.justweather.weather;
 
+import android.content.Context;
+
 import com.nickming.justweather.base.BasePresenter;
 import com.nickming.justweather.base.BaseView;
+import com.nickming.justweather.common.WeatherHeaderViewFactory;
 import com.nickming.justweather.weather.data.Weather;
+import com.nickming.justweather.weather.data.WeatherApi;
+import com.nickming.justweather.weather.data.source.CityType;
 
 /**
  * desc:列表管理契约类
@@ -22,24 +27,33 @@ public interface WeatherContract {
 
         void showAbout();
 
-        void showSelectCity();
+        void showSelectCity(String city);
 
         void showSnackBarMessage(String msg);
 
-        void showWeatherList(Weather bean);
+        void showWeather(Weather bean);
 
+        void showRefresh();
+
+        void showCompleteRefresh();
+
+        void showHeaderAndDrawerView(WeatherHeaderViewFactory.HeaderViewType type);
 
     }
 
     interface Presenter extends BasePresenter
     {
-        void requestWeatherData(String city);
+        void requestWeatherData(String city,CityType Type);
 
         void addToFavourite();
 
         void login();
 
         void exit();
+
+        void requestLocation(Context context);
+
+        void judgeWeatherHeaderView(WeatherApi weatherApi);
 
     }
 }

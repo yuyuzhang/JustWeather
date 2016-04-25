@@ -1,5 +1,7 @@
 package com.nickming.justweather.weather.data.source;
 
+import android.content.Context;
+
 import com.nickming.justweather.weather.data.WeatherApi;
 
 import rx.Observable;
@@ -14,5 +16,16 @@ import rx.Observable;
 
 public interface WeatherDataSource {
 
+    interface RequestLocationCallback
+    {
+        void onSuccess(String city);
+
+        void onFailure(String msg);
+    }
+
     Observable<WeatherApi> requestWeahterInfo(String city,String key);
+
+    Observable<WeatherApi> requestWeahterForName(String cityName,String key);
+
+    void requestCityName(Context context,RequestLocationCallback callback);
 }

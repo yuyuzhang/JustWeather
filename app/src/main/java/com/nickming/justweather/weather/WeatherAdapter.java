@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.nickming.justweather.R;
-import com.nickming.justweather.common.SettingManager;
+import com.nickming.justweather.setting.SettingManager;
 import com.nickming.justweather.weather.data.Weather;
 
 import java.text.SimpleDateFormat;
@@ -40,7 +40,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         mContext = context;
         this.mWeatherData = weatherData;
 
-        mSettingManager = SettingManager.getInstance().getInstance();
+        mSettingManager = SettingManager.getInstance();
     }
 
 
