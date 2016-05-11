@@ -29,6 +29,7 @@ public class BaseApplication extends Application{
         /**
          * 如果存在SD卡则将缓存写入SD卡,否则写入手机内存
          */
+
         appComponent=DaggerAppComponent.builder().appModule(new AppModule(this)).build();
 
         if (getApplicationContext().getExternalCacheDir() != null && ExistSDCard()) {

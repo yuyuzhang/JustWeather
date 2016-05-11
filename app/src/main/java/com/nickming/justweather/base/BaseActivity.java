@@ -1,12 +1,14 @@
 package com.nickming.justweather.base;
 
+import android.os.Build;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.WindowManager;
 
-import com.nickming.justweather.common.Constants;
 import com.nickming.justweather.dagger.component.AppComponent;
 import com.nickming.justweather.dagger.module.ActivityModule;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 /**
  * desc:基类
@@ -18,13 +20,6 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 public class BaseActivity extends AppCompatActivity{
 
-    protected IWXAPI mWxApi;
-
-    protected void registWxApi()
-    {
-        mWxApi= WXAPIFactory.createWXAPI(this, Constants.WECHAT_APP_ID,false);
-        mWxApi.registerApp(Constants.WECHAT_APP_ID);
-    }
 
     protected AppComponent getAppComponent() {
         return ((BaseApplication) getApplication()).getAppComponent();
@@ -32,6 +27,43 @@ public class BaseActivity extends AppCompatActivity{
 
     protected ActivityModule getActivityModule() {
         return new ActivityModule(this);
+    }
+
+    /**
+     * 设置状态栏颜色
+     * 也就是所谓沉浸式状态栏
+     */
+    public void setStatusBarColor(int color) {
+        /**
+         * Android4.4以上  但是抽屉有点冲突，目前就重写一个方法暂时解决4.4的问题
+         */
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintResource(color);
+        }
+    }
+
+    public void setStatusBarColorForKitkat(int color) {
+        /**
+         * Android4.4
+         */
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+            this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintResource(color);
+        }
+    }
+
+    public void showSnackbar(View view, String s) {
+        Snackbar.make(view, s, Snackbar.LENGTH_SHORT).show();
+    }
+
+    public void showSnackbar(View view, String s, boolean ture) {
+        Snackbar.make(view, s, Snackbar.LENGTH_LONG).show();
     }
 
 }

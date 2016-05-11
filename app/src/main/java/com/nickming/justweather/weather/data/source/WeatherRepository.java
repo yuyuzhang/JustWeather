@@ -26,6 +26,8 @@ public class WeatherRepository implements WeatherDataSource {
 
     protected static WeatherRepository mInstance;
 
+    protected static WeatherApi mWeatherApi;
+
     public static WeatherRepository getInstance() {
         if (mInstance == null)
             mInstance = new WeatherRepository();
@@ -108,5 +110,15 @@ public class WeatherRepository implements WeatherDataSource {
         option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤gps仿真结果，默认需要
         client.setLocOption(option);
         client.start();
+    }
+
+    @Override
+    public WeatherApi loadCurrentWeatherApi() {
+        return mWeatherApi;
+    }
+
+    @Override
+    public void setCurrentWeatherApi(WeatherApi weatherApi) {
+        this.mWeatherApi=weatherApi;
     }
 }

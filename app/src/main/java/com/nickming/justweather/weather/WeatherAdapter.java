@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.nickming.justweather.R;
-import com.nickming.justweather.setting.SettingManager;
+import com.nickming.justweather.common.SettingManager;
 import com.nickming.justweather.weather.data.Weather;
 
 import java.text.SimpleDateFormat;
@@ -34,6 +34,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private Weather mWeatherData;
     private SettingManager mSettingManager;
+    private boolean isNightMode=false;
 
 
     public WeatherAdapter(Context context, Weather weatherData) {
@@ -43,10 +44,24 @@ public class WeatherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         mSettingManager = SettingManager.getInstance();
     }
 
+    public WeatherAdapter(Context context, Weather weatherData,boolean isNightMode) {
+        mContext = context;
+        this.mWeatherData = weatherData;
+        this.isNightMode=isNightMode;
+        mSettingManager = SettingManager.getInstance();
+    }
 
-    public void setWeatherData(Weather mWeatherData)
+
+    public void changeToNightMode()
     {
-        this.mWeatherData=mWeatherData;
+        isNightMode=true;
+        notifyDataSetChanged();
+
+    }
+
+    public void changeToNormalMode()
+    {
+        isNightMode=false;
         notifyDataSetChanged();
     }
 
@@ -79,21 +94,42 @@ public class WeatherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         {
             return null;
         }
-        if (viewType == TYPE_ONE) {
-            return new NowWeatherViewHolder(
-                    LayoutInflater.from(mContext).inflate(R.layout.item_temperature, parent, false));
+        if (!isNightMode)
+        {
+            if (viewType == TYPE_ONE) {
+                return new NowWeatherViewHolder(
+                        LayoutInflater.from(mContext).inflate(R.layout.item_temperature, parent, false));
+            }
+            if (viewType == TYPE_TWO) {
+                return new HoursWeatherViewHolder(
+                        LayoutInflater.from(mContext).inflate(R.layout.item_hour_info, parent, false));
+            }
+            if (viewType == TYPE_THREE) {
+                return new SuggestionViewHolder(
+                        LayoutInflater.from(mContext).inflate(R.layout.item_suggestion, parent, false));
+            }
+            if (viewType == TYPE_FORE) {
+                return new ForecastViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_forecast, parent, false));
+            }
+        }else
+        {
+            if (viewType == TYPE_ONE) {
+                return new NowWeatherViewHolder(
+                        LayoutInflater.from(mContext).inflate(R.layout.item_temperature_night, parent, false));
+            }
+            if (viewType == TYPE_TWO) {
+                return new HoursWeatherViewHolder(
+                        LayoutInflater.from(mContext).inflate(R.layout.item_hour_info_night, parent, false));
+            }
+            if (viewType == TYPE_THREE) {
+                return new SuggestionViewHolder(
+                        LayoutInflater.from(mContext).inflate(R.layout.item_suggestion_night, parent, false));
+            }
+            if (viewType == TYPE_FORE) {
+                return new ForecastViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_forecast_night, parent, false));
+            }
         }
-        if (viewType == TYPE_TWO) {
-            return new HoursWeatherViewHolder(
-                    LayoutInflater.from(mContext).inflate(R.layout.item_hour_info, parent, false));
-        }
-        if (viewType == TYPE_THREE) {
-            return new SuggestionViewHolder(
-                    LayoutInflater.from(mContext).inflate(R.layout.item_suggestion, parent, false));
-        }
-        if (viewType == TYPE_FORE) {
-            return new ForecastViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_forecast, parent, false));
-        }
+
 
         return null;
     }

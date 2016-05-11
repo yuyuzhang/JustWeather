@@ -7,8 +7,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="weixin">Wechat</string>
-    <string name="favourite">Fav</string>
-    <string name="message">Message</string>
+    <string name="WXfriends">WXfriends</string>
+    <string name="WXmoments">WXmoments</string>
+    <string name="Message">Message</string>
     <string name="title_activity_splash">SplashActivity</string>
 </resources>

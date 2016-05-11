@@ -1,6 +1,7 @@
 package com.nickming.justweather.utils;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -15,28 +16,31 @@ public class TimeUtil {
 
     /**
      * 判断是否为夜间模式
+     *
      * @return
      */
-    public static boolean isNightMode()
-    {
-        Date date=new Date();
-        if (isInDate(date,"19:00:00","24:00:00"))
-            return true;
-        if (isInDate(date,"00:00:00","05:00:00"))
+    public static boolean isNightMode() {
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        if (hour < 6 || hour > 18)
             return true;
         else
             return false;
+//        Date date=new Date();
+//        if (isInDate(date,"19:00:00","24:00:00"))
+//            return true;
+//        if (isInDate(date,"00:00:00","05:00:00"))
+//            return true;
+//        else
+//            return false;
     }
 
     /**
      * 判断时间是否在时间段内
      *
-     * @param date
-     *            当前时间 yyyy-MM-dd HH:mm:ss
-     * @param strDateBegin
-     *            开始时间 00:00:00
-     * @param strDateEnd
-     *            结束时间 00:05:00
+     * @param date         当前时间 yyyy-MM-dd HH:mm:ss
+     * @param strDateBegin 开始时间 00:00:00
+     * @param strDateEnd   结束时间 00:05:00
      * @return
      */
     public static boolean isInDate(Date date, String strDateBegin,

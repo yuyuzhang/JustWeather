@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_weixin"
+        android:id="@+id/action_share_to_friends"
         android:icon="@drawable/ic_menu_share"
-        android:title="@string/weixin" />
+        android:title="@string/WXfriends" />
 
     <item
-        android:id="@+id/action_favourite"
+        android:id="@+id/action_share_to_moments"
         android:icon="@drawable/ic_favorite_24dp"
-        android:title="@string/favourite" />
+        android:title="@string/WXmoments" />
 
     <item
         android:id="@+id/action_message"
         android:icon="@drawable/ic_menu_send"
-        android:title="@string/message" />
+        android:title="@string/Message" />
 </menu>

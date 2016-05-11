@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="android" name="Android">
+      <configuration />
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/java" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="classes59" level="project" />
+    <orderEntry type="library" name="classes28" level="project" />
+    <orderEntry type="library" name="classes88" level="project" />
+    <orderEntry type="library" name="libs3" level="project" />
+    <orderEntry type="library" name="debug6" level="project" />
+    <orderEntry type="library" name="classes50" level="project" />
+    <orderEntry type="library" name="classes31" level="project" />
+    <orderEntry type="library" name="classes67" level="project" />
+    <orderEntry type="library" name="internal_impl-22.2.13" level="project" />
+    <orderEntry type="library" name="classes19" level="project" />
+    <orderEntry type="library" name="classes75" level="project" />
+    <orderEntry type="library" name="mockable-android-232" level="project" />
+    <orderEntry type="library" name="classes86" level="project" />
+    <orderEntry type="library" name="classes70" level="project" />
+    <orderEntry type="library" name="generated1" level="project" />
+    <orderEntry type="library" name="internal_impl-23.1.1" level="project" />
+    <orderEntry type="library" name="internal_impl-22.1.11" level="project" />
+    <orderEntry type="library" name="classes47" level="project" />
+    <orderEntry type="library" name="classes64" level="project" />
+    <orderEntry type="library" name="mockable-android-19" level="project" />
+    <orderEntry type="library" name="internal_impl-23.3.0" level="project" />
+    <orderEntry type="library" name="internal_impl-22.1.12" level="project" />
+    <orderEntry type="library" name="classes85" level="project" />
+    <orderEntry type="library" name="internal_impl-22.2.11" level="project" />
+    <orderEntry type="library" name="classes81" level="project" />
+    <orderEntry type="library" name="libs" level="project" />
+    <orderEntry type="library" name="internal_impl-22.1.1" level="project" />
+    <orderEntry type="library" name="mockable-android-23" level="project" />
+    <orderEntry type="library" name="classes109" level="project" />
+    <orderEntry type="library" name="classes3" level="project" />
+    <orderEntry type="library" name="classes94" level="project" />
+    <orderEntry type="library" name="classes92" level="project" />
+    <orderEntry type="library" name="mockable-android-233" level="project" />
+    <orderEntry type="library" name="classes18" level="project" />
+    <orderEntry type="library" name="classes83" level="project" />
+    <orderEntry type="library" name="classes117" level="project" />
+    <orderEntry type="library" name="classes42" level="project" />
+    <orderEntry type="library" name="internal_impl-22.2.1" level="project" />
+    <orderEntry type="library" name="generated" level="project" />
+    <orderEntry type="library" name="internal_impl-23.3.03" level="project" />
+    <orderEntry type="library" name="classes114" level="project" />
+    <orderEntry type="library" name="classes135" level="project" />
+    <orderEntry type="library" name="classes23" level="project" />
+    <orderEntry type="library" name="classes108" level="project" />
+    <orderEntry type="library" name="classes52" level="project" />
+    <orderEntry type="library" name="classes36" level="project" />
+    <orderEntry type="library" name="mockable-android-231" level="project" />
+    <orderEntry type="library" name="libs4" level="project" />
+    <orderEntry type="library" name="classes125" level="project" />
+    <orderEntry type="library" name="classes84" level="project" />
+    <orderEntry type="library" name="classes20" level="project" />
+    <orderEntry type="library" name="classes40" level="project" />
+    <orderEntry type="library" name="classes54" level="project" />
+    <orderEntry type="library" name="classes98" level="project" />
+    <orderEntry type="library" name="classes33" level="project" />
+    <orderEntry type="library" name="internal_impl-23.3.02" level="project" />
+    <orderEntry type="library" name="internal_impl-23.3.01" level="project" />
+    <orderEntry type="library" name="classes60" level="project" />
+    <orderEntry type="library" name="classes14" level="project" />
+    <orderEntry type="library" name="classes17" level="project" />
+    <orderEntry type="library" name="classes97" level="project" />
+    <orderEntry type="library" name="internal_impl-22.2.15" level="project" />
+    <orderEntry type="library" name="debug4" level="project" />
+    <orderEntry type="library" name="libs1" level="project" />
+    <orderEntry type="library" name="internal_impl-22.2.12" level="project" />
+    <orderEntry type="library" name="internal_impl-22.2.14" level="project" />
+    <orderEntry type="library" name="libs2" level="project" />
+    <orderEntry type="library" name="classes80" level="project" />
+    <orderEntry type="library" name="classes77" level="project" />
+    <orderEntry type="library" name="classes25" level="project" />
+    <orderEntry type="module" module-name="androidTest44" />
+    <orderEntry type="module" module-name="r8" />
+    <orderEntry type="module" module-name="buildConfig26" />
+  </component>
+</module>

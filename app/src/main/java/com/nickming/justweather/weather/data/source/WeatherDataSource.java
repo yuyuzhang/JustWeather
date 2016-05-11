@@ -28,4 +28,8 @@ public interface WeatherDataSource {
     Observable<WeatherApi> requestWeahterForName(String cityName,String key);
 
     void requestCityName(Context context,RequestLocationCallback callback);
+
+    WeatherApi loadCurrentWeatherApi();
+
+    void setCurrentWeatherApi(WeatherApi weatherApi);
 }

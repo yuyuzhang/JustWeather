@@ -10,5 +10,9 @@ package com.nickming.justweather.common;
 
 public class Constants {
 
-    public static final String WECHAT_APP_ID="wx911d1bd6d025bae0";
+    public static final String WECHAT_APP_ID = "wx911d1bd6d025bae0";
+
+    public static final int CHOICE_CITY_REQUEST_CODE = 100;
+
+    public static final int CHOICE_CITY_RESULT_CODE = 101;
 }

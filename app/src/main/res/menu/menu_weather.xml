@@ -9,14 +9,17 @@
 
     <item android:title="@string/app_name">
         <menu>
-            <item
-                android:id="@+id/nav_set"
-                android:icon="@drawable/ic_settings_24dp"
-                android:title="设置"/>
+
             <item
                 android:id="@+id/nav_about"
                 android:icon="@drawable/ic_menu_about"
                 android:title="关于"/>
         </menu>
     </item>
+
+        <item xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/navi_item_create_notifications_sound"
+            android:title="夜间模式"
+            app:actionLayout="@layout/action_switch"
+            app:showAsAction="always" />
 </menu>

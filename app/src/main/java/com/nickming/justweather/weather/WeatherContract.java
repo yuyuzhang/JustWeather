@@ -1,6 +1,7 @@
 package com.nickming.justweather.weather;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.nickming.justweather.base.BasePresenter;
 import com.nickming.justweather.base.BaseView;
@@ -21,12 +22,6 @@ public interface WeatherContract {
 
     interface View extends BaseView<Presenter>
     {
-        void showDrawer();
-
-        void showSetting();
-
-        void showAbout();
-
         void showSelectCity(String city);
 
         void showSnackBarMessage(String msg);
@@ -39,21 +34,37 @@ public interface WeatherContract {
 
         void showHeaderAndDrawerView(WeatherHeaderViewFactory.HeaderViewType type);
 
+        void showFinishedActivity();
+
+        void showNormalModeView();
+
+        void showNightModeView();
+
+        void showStatusBarIcon();
+
+        void hideStatusBarIcon();
+
     }
 
     interface Presenter extends BasePresenter
     {
         void requestWeatherData(String city,CityType Type);
 
-        void addToFavourite();
-
-        void login();
-
         void exit();
 
         void requestLocation(Context context);
 
         void judgeWeatherHeaderView(WeatherApi weatherApi);
+
+        void sendMessage(Context context);
+
+        void shareToWechat(Context context,boolean isToFriend);
+
+        void onActivityRersult(int requestCode, int resultCode, Intent data);
+
+        void startSelectCityActivity(WeatherActivity weatherActivity);
+
+        void changeNightMode(boolean nightMode);
 
     }
 }

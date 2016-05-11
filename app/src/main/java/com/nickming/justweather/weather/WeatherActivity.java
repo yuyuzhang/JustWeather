@@ -1,5 +1,6 @@
 package com.nickming.justweather.weather;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
@@ -50,5 +51,16 @@ public class WeatherActivity extends BaseActivity {
 
     public WeatherComponent getmComponent() {
         return mComponent;
+    }
+
+    @Override
+    public void onBackPressed() {
+        mPresenter.exit();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mPresenter.onActivityRersult(requestCode,resultCode,data);
     }
 }

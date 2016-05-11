@@ -1,13 +1,19 @@
 package com.nickming.justweather.weather;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 
 import com.nickming.justweather.R;
+import com.nickming.justweather.city.ChoiceCityActivity;
+import com.nickming.justweather.common.Constants;
+import com.nickming.justweather.common.SettingManager;
 import com.nickming.justweather.common.WeatherHeaderViewFactory;
+import com.nickming.justweather.common.WeixinShareManager;
 import com.nickming.justweather.dagger.scope.PerActivity;
-import com.nickming.justweather.setting.SettingManager;
 import com.nickming.justweather.utils.TimeUtil;
+import com.nickming.justweather.weather.data.Weather;
 import com.nickming.justweather.weather.data.WeatherApi;
 import com.nickming.justweather.weather.data.source.CityType;
 import com.nickming.justweather.weather.data.source.WeatherDataSource;
@@ -33,11 +39,17 @@ public class WeatherPresenter implements WeatherContract.Presenter {
 
     private static final String TAG = WeatherPresenter.class.getSimpleName();
 
+
     protected WeatherRepository mRepository;
 
     protected WeatherContract.View mWeatherView;
 
     protected SettingManager settingManager;
+
+    protected long mLastBackTime=0;
+    protected long mCurretBackTime=0;
+
+
 
     @Inject
     public WeatherPresenter(WeatherRepository mRepository, WeatherContract.View mWeatherView) {
@@ -49,33 +61,6 @@ public class WeatherPresenter implements WeatherContract.Presenter {
 
     @Override
     public void requestWeatherData(String city, CityType type) {
-        if (type == CityType.CITY_ID) {
-            mWeatherView.showRefresh();
-            mRepository.requestWeahterInfo("CN101010100", "19713447578c4afe8c12a351d46ea922")
-                    .subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Subscriber<WeatherApi>() {
-                        @Override
-                        public void onCompleted() {
-                            mWeatherView.showCompleteRefresh();
-                            mWeatherView.showSnackBarMessage("刷新完成!");
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            mWeatherView.showCompleteRefresh();
-                            mWeatherView.showSnackBarMessage("请求出错!");
-                            Log.i(TAG, "onError :" + String.format(Locale.CHINA, e.toString()));
-                        }
-
-                        @Override
-                        public void onNext(WeatherApi weatherApi) {
-                            mWeatherView.showWeather(weatherApi.mHeWeatherDataService30s.get(0));
-                            mWeatherView.showSelectCity(weatherApi.mHeWeatherDataService30s.get(0).basic.city);
-                            judgeWeatherHeaderView(weatherApi);
-                        }
-                    });
-        } else {
             mWeatherView.showRefresh();
             String cityName = city;
             if (cityName != null) {
@@ -86,7 +71,7 @@ public class WeatherPresenter implements WeatherContract.Presenter {
                         .replace("地区", "")
                         .replace("盟", "");
             }
-            mRepository.requestWeahterForName(cityName, "19713447578c4afe8c12a351d46ea922")
+            mRepository.requestWeahterForName(cityName, SettingManager.KEY)
                     .subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Subscriber<WeatherApi>() {
@@ -109,25 +94,25 @@ public class WeatherPresenter implements WeatherContract.Presenter {
                             mWeatherView.showWeather(weatherApi.mHeWeatherDataService30s.get(0));
                             mWeatherView.showSelectCity(weatherApi.mHeWeatherDataService30s.get(0).basic.city);
                             judgeWeatherHeaderView(weatherApi);
+                            mRepository.setCurrentWeatherApi(weatherApi);
+                            mWeatherView.showStatusBarIcon();
                         }
                     });
-        }
 
     }
 
-    @Override
-    public void addToFavourite() {
-
-    }
-
-    @Override
-    public void login() {
-
-    }
 
     @Override
     public void exit() {
-
+        mCurretBackTime=System.currentTimeMillis();
+        if (mCurretBackTime-mLastBackTime>=2*1000)
+        {
+            mWeatherView.showSnackBarMessage("再点击一次退出程序!");
+            mLastBackTime=System.currentTimeMillis();
+        }else
+        {
+            mWeatherView.showFinishedActivity();
+        }
     }
 
     @Override
@@ -164,6 +149,80 @@ public class WeatherPresenter implements WeatherContract.Presenter {
         }
 
     }
+
+    @Override
+    public void sendMessage(Context context) {
+        Uri uri = Uri.parse("smsto:");
+        Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
+        sendIntent.putExtra("sms_body", loadSendContent());
+        context.startActivity(sendIntent);
+    }
+
+    /**
+     * 生成发送内容
+     * @return
+     */
+    private String loadSendContent() {
+        if (mRepository.loadCurrentWeatherApi()!=null)
+        {
+            Weather mWeatherData=mRepository.loadCurrentWeatherApi().mHeWeatherDataService30s.get(0);
+            StringBuilder builder=new StringBuilder();
+            builder.append(mWeatherData.basic.city+" 今日");
+            builder.append(mWeatherData.dailyForecast.get(0).cond.txtD + "。 最高" +
+                    mWeatherData.dailyForecast.get(0).tmp.max + "℃。 " +
+                    mWeatherData.dailyForecast.get(0).wind.sc + " " +
+                    mWeatherData.dailyForecast.get(0).wind.dir + " " +
+                    mWeatherData.dailyForecast.get(0).wind.spd + " km/h。 " +
+                    "降水几率 " +
+                    "" + mWeatherData.dailyForecast.get(0).pop + "%。");
+            builder.append("  ---来自JustWeather");
+            return builder.toString();
+        }else
+        {
+            return null;
+        }
+    }
+
+    @Override
+    public void shareToWechat(Context context, boolean isToFriend) {
+        WeixinShareManager wsm = WeixinShareManager.getInstance(context);
+        if (isToFriend)
+        {
+            wsm.shareByWeixin(wsm.new ShareContentText(loadSendContent()),
+                    WeixinShareManager.WEIXIN_SHARE_TYPE_TALK);
+        }else
+        {
+            wsm.shareByWeixin(wsm.new ShareContentText(loadSendContent()),
+                    WeixinShareManager.WEIXIN_SHARE_TYPE_FRENDS);
+        }
+    }
+
+    @Override
+    public void onActivityRersult(int requestCode, int resultCode, Intent data) {
+        if (resultCode==Constants.CHOICE_CITY_RESULT_CODE&&requestCode==Constants.CHOICE_CITY_REQUEST_CODE)
+        {
+            String result=data.getStringExtra(SettingManager.CITY_NAME);
+            requestWeatherData(result,CityType.CITY_NAME);
+        }
+    }
+
+    @Override
+    public void startSelectCityActivity(WeatherActivity weatherActivity) {
+        if (weatherActivity!=null)
+        {
+            Intent intent=new Intent(weatherActivity, ChoiceCityActivity.class);
+            weatherActivity.startActivityForResult(intent, Constants.CHOICE_CITY_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void changeNightMode(boolean nightMode) {
+        if (nightMode)
+            mWeatherView.showNightModeView();
+        else
+            mWeatherView.showNormalModeView();
+    }
+
 
     @Override
     public void start() {
